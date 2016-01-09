@@ -30,7 +30,7 @@ public class UrlParserImpl implements Parseable {
 					  .get();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Invalid URL or No Internet Connection");
 		}
 		
 		if(doc == null)
@@ -57,8 +57,8 @@ public class UrlParserImpl implements Parseable {
 		}
 		Arrays.sort(arrayOfKeyValues, new WordFrequencyComparator());
 		
-		WordFrequencyKeyValue [] top50 = new WordFrequencyKeyValue[50];
-		top50 = Arrays.copyOf(arrayOfKeyValues, 50);
+		WordFrequencyKeyValue [] top50 = new WordFrequencyKeyValue[100];
+		top50 = Arrays.copyOf(arrayOfKeyValues, 100);
 		
 		return top50;
 	}

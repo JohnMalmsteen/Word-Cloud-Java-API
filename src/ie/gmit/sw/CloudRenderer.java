@@ -14,9 +14,10 @@ public class CloudRenderer {
 	private FontSizeSelectionStrategy strategy = null;
 	private WordFrequencyKeyValue[] weightedArray = null;
 	private String outputName;
+	private PlaceableFactory patternFactory = PlaceableFactory.getInstance();
 	private Placeable placer;
-
-	public CloudRenderer(String source, SourceType sourceType, String outputName){
+	
+	public CloudRenderer(String source, SourceType sourceType, DrawingPattern pattern, String outputName){
 		parser = parserFactory.getParseable(sourceType);
 		
 		WordFrequencyKeyValue[] unweightedArray = parser.parse(source);
@@ -34,7 +35,7 @@ public class CloudRenderer {
 		
 		weightedArray = strategy.getFontSizes(unweightedArray);
 		
-		placer = new GaussianRotatingPlacer();
+		placer = patternFactory.getPlaceable(pattern);
 		this.outputName = outputName;
 	}
 	

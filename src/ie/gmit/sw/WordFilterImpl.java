@@ -32,7 +32,7 @@ public class WordFilterImpl implements WordFilter {
 			br.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 	}

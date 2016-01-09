@@ -1,6 +1,7 @@
 package ie.gmit.sw;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -27,11 +28,13 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 
 	private BufferedImage image = null;
 	private Graphics context = null;
-	
+	private Color textColor = Color.WHITE;
+	private int grayscale = 254;
 	public LogarithmicSpiralPlacerImpl(){
 		image = new BufferedImage(1600, 1000, BufferedImage.TYPE_4BYTE_ABGR);
 		context = image.getGraphics();
-		
+		context.setColor(Color.BLACK);
+		context.fillRect(0, 0, 1600, 1000);
 		horizontalCentre = 700;
 		verticalCentre = 500;
 	}
@@ -40,7 +43,8 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 		int h = horizontalCentre;
         int v = verticalCentre;
 		int k = 1;
-		
+		textColor = new Color(grayscale, grayscale, grayscale--);
+		context.setColor(textColor);
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(word.getWord(), context);
 		Rectangle simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)(rect.getWidth()), (int)(rect.getHeight()));
 		

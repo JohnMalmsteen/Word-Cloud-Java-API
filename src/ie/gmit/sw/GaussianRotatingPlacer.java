@@ -1,9 +1,8 @@
 package ie.gmit.sw;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -24,22 +23,31 @@ public class GaussianRotatingPlacer implements Placeable {
 	private BufferedImage image = null;
 	private Graphics2D context = null;
 	
-	private Random randGauss = new Random();
+	private Random rand = new Random();
+	
+	private Color [] colors = new Color[5];
+	
 	
 	public GaussianRotatingPlacer() {
+		colors[0] = new Color(182, 240, 255);
+		colors[1] = new Color(171, 156, 232);
+		colors[2] = new Color(255, 97, 189);
+		colors[3] = new Color(232, 208, 193);
+		colors[4] = new Color(255, 240, 169);
 		image = new BufferedImage(1600, 1000, BufferedImage.TYPE_4BYTE_ABGR);
 		context = image.createGraphics();
-		
+		context.setColor(Color.GRAY);
+		context.fillRect(0, 0, 1600, 1000);
 		horizontalCentre = 700;
 		verticalCentre = 500;
 	}
 
 	public void placeString(WordFrequencyKeyValue word, Font font) {
-
+		context.setColor(colors[Math.abs(rand.nextInt())%5]);
 		int h = horizontalCentre;
         int v = verticalCentre;
 		int k = 1;
-		boolean rotated = (randGauss.nextInt()%5 == 0) ? true : false;
+		boolean rotated = (rand.nextInt()%5 == 0) ? true : false;
 		AffineTransform saveTransform=context.getTransform();
 		
 		AffineTransform affineTransform = context.getTransform() ;
@@ -72,12 +80,12 @@ public class GaussianRotatingPlacer implements Placeable {
         { 
 			// move the initialpoints
 			if(!rotated){
-				h = (int)(randGauss.nextGaussian()*(k/40)+horizontalCentre);
-				v = (int)(randGauss.nextGaussian()*(k/100)+verticalCentre);
+				h = (int)(rand.nextGaussian()*(k/40)+horizontalCentre);
+				v = (int)(rand.nextGaussian()*(k/100)+verticalCentre);
 			}
 			else{
-				h = (int)(randGauss.nextGaussian()*(k/100)+horizontalCentre);
-				v = (int)(randGauss.nextGaussian()*(k/40)+verticalCentre);
+				h = (int)(rand.nextGaussian()*(k/100)+horizontalCentre);
+				v = (int)(rand.nextGaussian()*(k/40)+verticalCentre);
 			}
 			
 			
