@@ -18,7 +18,7 @@ public class WeightedFontStrategy implements FontSizeSelectionStrategy {
 		
 		for(WordFrequencyKeyValue keyValue : arrayOfWordKeyValues){
 			if(keyValue != null){
-				keyValue.setFontSize((int)(((float)keyValue.getFrequency()/(float)totalOccurrences)*600.00)+1);
+				keyValue.setFontSize((int)(((float)keyValue.getFrequency()/(float)totalOccurrences)*1500.00)+15);
 			}
 		}
 		

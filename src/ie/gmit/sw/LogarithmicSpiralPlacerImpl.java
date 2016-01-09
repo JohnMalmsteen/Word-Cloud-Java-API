@@ -6,17 +6,22 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
-public class LogarithmicSpiralPlacerImpl {
+import javax.imageio.ImageIO;
+
+import org.w3c.dom.ls.LSInput;
+
+public class LogarithmicSpiralPlacerImpl implements Placeable {
 	
-	private final double GROWTH_RATE = 1.618;
+	private final double GROWTH_RATE = .1;
 	
 	private int horizontalCentre = 0;
 	private int verticalCentre = 0;
 	
-	private int n = 45;
-	private int turn = 45;
+	private int turn = 23;
 	
 	private List<Rectangle> listOfPlacedWords = new ArrayList<Rectangle>();
 
@@ -24,26 +29,20 @@ public class LogarithmicSpiralPlacerImpl {
 	private Graphics context = null;
 	
 	public LogarithmicSpiralPlacerImpl(){
-		//implying 16:10 isn't the best aspect ratio
-		// golden ratio 4 life!
-		this(1600, 1000);
-	}
-	
-	public LogarithmicSpiralPlacerImpl(int width, int height){
-		image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		image = new BufferedImage(1600, 1000, BufferedImage.TYPE_4BYTE_ABGR);
 		context = image.getGraphics();
 		
-		horizontalCentre = width/2;
-		verticalCentre = height/2;
+		horizontalCentre = 700;
+		verticalCentre = 500;
 	}
 	
-	public void placeString(WordFrequencyKeyValue word, Graphics context, Font font){
+	public void placeString(WordFrequencyKeyValue word, Font font){
 		int h = horizontalCentre;
         int v = verticalCentre;
 		int k = 1;
 		
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(word.getWord(), context);
-		Rectangle simpleRect = new Rectangle(h, v, (int)rect.getWidth()-30, (int)rect.getHeight()-30);
+		Rectangle simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)(rect.getWidth()), (int)(rect.getHeight()));
 		
 		while (detectCollision(simpleRect))
         { 
@@ -54,25 +53,34 @@ public class LogarithmicSpiralPlacerImpl {
             int v_next= (int) Math.round(v+L*Math.sin(theta*Math.PI/180));
 
 	        h= h_next; v= v_next; 
-	        simpleRect = new Rectangle(h, v, (int)rect.getWidth()-30, (int)rect.getHeight()-30);
+	   
+	        simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)(rect.getWidth()), (int)(rect.getHeight()));
 	        k= k+1;
         }
 	    
+		context.setFont(font);
+		context.drawString(word.getWord(), h, v);
+		//context.drawRect(h, v-(int)(rect.getHeight()*.8), (int)rect.getWidth(), (int)rect.getHeight());
+		listOfPlacedWords.add(simpleRect);
+	}
 	
+	public void complete(String outputName){
+		context.dispose();
+		try {
+			ImageIO.write(image, "png", new File(outputName + ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
 	private boolean detectCollision(Rectangle proposed){
 		for(Rectangle existing : listOfPlacedWords){
-			if(proposed.intersects(existing))
+			if(proposed.intersects(existing) || proposed.contains(existing) || existing.contains(proposed))
 				return true;
 		}
 		return false;
-	}
-	
-	public static void main(String[] args) {
-		LogarithmicSpiralPlacerImpl placer = new LogarithmicSpiralPlacerImpl();
-		placer.placeString(new WordFrequencyKeyValue("word", 1), new BufferedImage(1, 1, BufferedImage.TYPE_3BYTE_BGR).getGraphics(), new Font("sdfg", 3, 30));
 	}
 
 }

@@ -7,16 +7,16 @@ import java.io.*;
 import java.util.ArrayList;
 public class CloudRenderer {
 	
-	private ArrayList<Rectangle> listOfDrawnStrings = new ArrayList<>();
-	
-	
+	private ArrayList<Rectangle> listOfDrawnStrings = new ArrayList<>();	
 	private ParseableFactory parserFactory = ParseableFactory.getInstance();
 	
 	private Parseable parser;
 	private FontSizeSelectionStrategy strategy = null;
 	private WordFrequencyKeyValue[] weightedArray = null;
-	
-	public CloudRenderer(String source, SourceType sourceType, int width, int height){
+	private String outputName;
+	private Placeable placer;
+
+	public CloudRenderer(String source, SourceType sourceType, String outputName){
 		parser = parserFactory.getParseable(sourceType);
 		
 		WordFrequencyKeyValue[] unweightedArray = parser.parse(source);
@@ -33,16 +33,22 @@ public class CloudRenderer {
 		}
 		
 		weightedArray = strategy.getFontSizes(unweightedArray);
-	}
-
-	
-	public void drawNewString(Graphics context, String str, Font font, int x, int y){
-		context.setFont(font);
-		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(str, context);
-		Rectangle simpleRect = new Rectangle(x, y, (int)rect.getWidth()-30, (int)rect.getHeight()-30);
 		
-		listOfDrawnStrings.add(simpleRect);
-		context.drawString(str, x, y);
+		placer = new GaussianRotatingPlacer();
+		this.outputName = outputName;
+	}
+	
+	public void draw(){
+		for(WordFrequencyKeyValue keyValue : weightedArray){
+			if(keyValue!= null){
+				placer.placeString(keyValue, new Font(Font.SANS_SERIF, Font.PLAIN, keyValue.getFontSize()));
+			}
+			else{
+				System.out.println("null");
+			}
+		}
+		
+		placer.complete(outputName);
 	}
 
 }
