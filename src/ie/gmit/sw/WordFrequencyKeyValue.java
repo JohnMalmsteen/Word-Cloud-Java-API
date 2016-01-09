@@ -5,6 +5,7 @@ public class WordFrequencyKeyValue {
 	
 	private String word;
 	private int frequency;
+	private int fontSize = 0;
 	
 	public WordFrequencyKeyValue(String w, int freq){
 		this.word = w;
@@ -35,6 +36,14 @@ public class WordFrequencyKeyValue {
 	}
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
+	}
+
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
 	}
 
 	@Override
