@@ -7,32 +7,36 @@ import java.io.*;
 import java.util.ArrayList;
 public class CloudRenderer {
 	
-	private static ArrayList<Rectangle> listOfDrawnStrings = new ArrayList<>();
+	private ArrayList<Rectangle> listOfDrawnStrings = new ArrayList<>();
 	
-	public static void main(String args[]) throws Exception{
-		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 62);
-		BufferedImage image = new BufferedImage(600, 300, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics graphics = image.getGraphics();
-		graphics.setColor(Color.red);
-		graphics.setFont(font);
+	
+	private ParseableFactory parserFactory = ParseableFactory.getInstance();
+	
+	private Parseable parser;
+	private FontSizeSelectionStrategy strategy = null;
+	private WordFrequencyKeyValue[] weightedArray = null;
+	
+	public CloudRenderer(String source, SourceType sourceType, int width, int height){
+		parser = parserFactory.getParseable(sourceType);
 		
+		WordFrequencyKeyValue[] unweightedArray = parser.parse(source);
 		
-		drawNewString(graphics, "Object-Oriented", font, 0, 100);
-		font = new Font(Font.SANS_SERIF, Font.ITALIC, 42);
-		graphics.setFont(font);
-		graphics.setColor(Color.yellow);
-		drawNewString(graphics, "Software Development", font, 35, 140);
-
-		System.out.println(listOfDrawnStrings.get(0).intersects(listOfDrawnStrings.get(1)));
-		font = new Font(Font.MONOSPACED, Font.PLAIN, 22);
-		graphics.setFont(font);
-		graphics.setColor(Color.blue);
-		graphics.drawString("2012 Assignment", 40, 180);
-		graphics.dispose();
-		ImageIO.write(image, "png", new File("image.png"));
+		// here i am demonstrating the context element of the strategy pattern employed for font weighting, if there are less than 50 disrete words in the list then we will use
+		// the linear font strategy, otherwise we will use the weighted strategy
+		// this is done at run time.
+		
+		if(unweightedArray[unweightedArray.length-1] == null){
+			strategy = new LinearFontSizeStrategy();
+		}
+		else{
+			strategy = new WeightedFontStrategy();
+		}
+		
+		weightedArray = strategy.getFontSizes(unweightedArray);
 	}
+
 	
-	public static void drawNewString(Graphics context, String str, Font font, int x, int y){
+	public void drawNewString(Graphics context, String str, Font font, int x, int y){
 		context.setFont(font);
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(str, context);
 		Rectangle simpleRect = new Rectangle(x, y, (int)rect.getWidth()-30, (int)rect.getHeight()-30);

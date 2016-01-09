@@ -7,9 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.html.HTMLEditorKit.Parser;
 
 public class Runner {
-	public static void main(String args[]) throws Exception{
+	
+	
+	
+	public static void main(String args[]) throws Exception{		
 		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 62);
 		BufferedImage image = new BufferedImage(600, 300, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics graphics = image.getGraphics();

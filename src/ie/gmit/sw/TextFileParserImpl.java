@@ -7,7 +7,7 @@ public class TextFileParserImpl implements Parseable {
 	private Map<String, Integer> wordFrequencyMap =  new HashMap<>();
 	private WordFilter filter;
 	
-	public TextFileParserImpl() throws IOException{
+	public TextFileParserImpl(){
 		filter = new WordFilterImpl();
 	}
 	

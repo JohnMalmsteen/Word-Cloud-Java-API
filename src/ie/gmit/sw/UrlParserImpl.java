@@ -13,7 +13,7 @@ public class UrlParserImpl implements Parseable {
 	private WordFilter filter;
 	private Map<String, Integer> wordFrequencyMap =  new HashMap<>();
 	
-	public UrlParserImpl() throws IOException {
+	public UrlParserImpl(){
 		filter = new WordFilterImpl();
 	}
 	

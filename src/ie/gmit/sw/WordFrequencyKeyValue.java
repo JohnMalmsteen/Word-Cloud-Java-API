@@ -48,7 +48,7 @@ public class WordFrequencyKeyValue {
 
 	@Override
 	public String toString() {
-		return "Word: " + this.getWord() + "\tFreq: " + this.getFrequency();
+		return "Word: " + this.getWord() + "\tFreq: " + this.getFrequency() + "\tFont Size: " + this.getFontSize();
 	}
 
 	

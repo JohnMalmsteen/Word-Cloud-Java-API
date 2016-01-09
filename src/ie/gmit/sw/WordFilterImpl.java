@@ -7,7 +7,7 @@ public class WordFilterImpl implements WordFilter {
 	private HashSet<String> stopwords = new HashSet<String>();
 	private String sourcefile = "stopwords.txt";
 	
-	public WordFilterImpl() throws IOException{
+	public WordFilterImpl(){
 		parseFile();
 	}
 	
@@ -16,18 +16,25 @@ public class WordFilterImpl implements WordFilter {
 		parseFile();
 	}
 	
-	private void parseFile() throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sourcefile)));
+	private void parseFile(){
+		
 		String line;
-		while((line = br.readLine()) != null){
-			line = line.trim();
-			line.toLowerCase();
-			line.replaceAll("[^a-z]", "");
-			if(!stopwords.contains(line)){
-				stopwords.add(line);
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sourcefile)));
+			while((line = br.readLine()) != null){
+				line = line.trim();
+				line.toLowerCase();
+				line.replaceAll("[^a-z]", "");
+				if(!stopwords.contains(line)){
+					stopwords.add(line);
+				}
 			}
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		br.close();
+		
 	}
 	
 	public boolean checkWord(String word){
