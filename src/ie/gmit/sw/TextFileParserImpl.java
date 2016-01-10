@@ -5,13 +5,13 @@ import java.io.*;
 
 public class TextFileParserImpl implements Parseable {
 	private Map<String, Integer> wordFrequencyMap =  new HashMap<>();
-	private WordFilter filter;
+	private Filterable filter;
 	
 	public TextFileParserImpl(){
 		filter = new WordFilterImpl();
 	}
 	
-	public TextFileParserImpl(WordFilter meansOfFiltration){
+	public TextFileParserImpl(Filterable meansOfFiltration){
 		filter = meansOfFiltration;
 	}
 	

@@ -3,7 +3,7 @@ package ie.gmit.sw;
 import java.io.*;
 import java.util.*;
 
-public class WordFilterImpl implements WordFilter {
+public class WordFilterImpl implements Filterable {
 	private HashSet<String> stopwords = new HashSet<String>();
 	private String sourcefile = "stopwords.txt";
 	

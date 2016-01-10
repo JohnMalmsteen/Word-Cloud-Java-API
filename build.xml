@@ -23,12 +23,12 @@
 	<property name="app.name" value="Word Cloud API"/>
 	<property name="app.version" value="1.0"/>
 	<property name="app.version.name" value="Scarab"/>
-	<property name="jre.target" value="1.5"/>
+	<property name="jre.target" value="1.8"/>
 	<property name="srcDir" value="./src/"/>
 	<property name="distDir" value="./dist"/>
 	<property name="docDir" value="${distDir}/docs"/>
 	<path id="classpath">
-		<pathelement location="."/>
+		<pathelement location="./;./jsoup-1.8.3.jar"/>
 	</path>
 	<echo>
 	    ----------------------------------------------------------------------------
@@ -55,7 +55,9 @@
 	<!-- Compile source code -->
 	<target name="compile" depends="init">
 		<javac target="${jre.target}" source="${jre.target}" srcdir="${srcDir}" destdir="${distDir}">
-		<classpath refid="classpath"/></javac></target>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
 	<!-- Create Java application archive (Jar) -->
 	<target name="archive" depends="compile">
 		<jar destfile="${distDir}/wordcloud.jar" basedir="${distDir}" excludes="**/*Test.class, **/Compact*.class">

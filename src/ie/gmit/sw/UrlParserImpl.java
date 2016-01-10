@@ -10,14 +10,14 @@ import org.jsoup.nodes.*;
 
 public class UrlParserImpl implements Parseable {
 	
-	private WordFilter filter;
+	private Filterable filter;
 	private Map<String, Integer> wordFrequencyMap =  new HashMap<>();
 	
 	public UrlParserImpl(){
 		filter = new WordFilterImpl();
 	}
 	
-	public UrlParserImpl(WordFilter meansOfFiltration){
+	public UrlParserImpl(Filterable meansOfFiltration){
 		filter = meansOfFiltration;
 	}
 

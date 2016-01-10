@@ -1,6 +1,6 @@
 package ie.gmit.sw;
 
-public interface WordFilter {
+public interface Filterable {
 
 	boolean checkWord(String word);
 

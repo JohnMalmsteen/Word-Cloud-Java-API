@@ -59,10 +59,8 @@ public class GaussianRotatingPlacer implements Placeable {
 			affineTransform.rotate(Math.toRadians(-90), 800, 500);
 			context.setTransform(affineTransform);
 			
-			simpleRect = new Rectangle(h-50 + (int)(rect.getWidth()*.8), v, (int)(rect.getHeight()*.8), (int)rect.getWidth());
+			simpleRect = new Rectangle(h + (int)(rect.getWidth()*.8), v-50, (int)(rect.getHeight()*.9), (int)rect.getWidth());
 		}	
-		
-		
 		
 		while (detectCollision(simpleRect))
         { 
@@ -70,7 +68,7 @@ public class GaussianRotatingPlacer implements Placeable {
 			v = (int)(rand.nextGaussian()*(k/100)+verticalCentre);
 
 			if(rotated){				
-				simpleRect = new Rectangle(h-50 + (int)(rect.getWidth()*.8), v, (int)(rect.getHeight()*.8), (int)rect.getWidth());
+				simpleRect = new Rectangle(h + (int)(rect.getWidth()*.8), v-50, (int)(rect.getHeight()*.8), (int)rect.getWidth());
 			}else{
 				simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)rect.getWidth(), (int)rect.getHeight());
 			}
