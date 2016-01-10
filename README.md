@@ -20,6 +20,8 @@ input.
 
 2. Architecture
 ---
+![architectureuml](http://i.imgur.com/qta0rnn.png)
+
 Working from 'back' to 'front' we have:
 
 #### Parseable.java
