@@ -19,7 +19,7 @@ public class GaussianRotatingPlacer implements Placeable {
 	private int verticalCentre = 0;
 	
 	private List<Rectangle> listOfPlacedWords = new ArrayList<Rectangle>();
-
+	private Detectable detector = new CollisionDetectorImpl();
 	private BufferedImage image = null;
 	private Graphics2D context = null;
 	
@@ -63,7 +63,7 @@ public class GaussianRotatingPlacer implements Placeable {
 			simpleRect = new Rectangle(h + (int)(rect.getWidth()*.8), v-50, (int)(rect.getHeight()*.9), (int)rect.getWidth());
 		}	
 		
-		while (detectCollision(simpleRect))
+		while (detector.detectCollision(simpleRect, listOfPlacedWords))
         { 
 			h = (int)(rand.nextGaussian()*(k/40)+horizontalCentre);
 			v = (int)(rand.nextGaussian()*(k/100)+verticalCentre);
@@ -105,12 +105,5 @@ public class GaussianRotatingPlacer implements Placeable {
 
 	}
 	
-	private boolean detectCollision(Rectangle proposed){
-		for(Rectangle existing : listOfPlacedWords){
-			if(proposed.intersects(existing) || proposed.contains(existing) || existing.contains(proposed))
-				return true;
-		}
-		return false;
-	}
 
 }

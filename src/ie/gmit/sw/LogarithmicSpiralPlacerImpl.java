@@ -30,6 +30,9 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 	private Graphics context = null;
 	private Color textColor = Color.WHITE;
 	private int grayscale = 254;
+	
+	public Detectable detector = new CollisionDetectorImpl();
+	
 	public LogarithmicSpiralPlacerImpl(){
 		image = new BufferedImage(1600, 1000, BufferedImage.TYPE_4BYTE_ABGR);
 		context = image.getGraphics();
@@ -49,7 +52,7 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(word.getWord(), context);
 		Rectangle simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)(rect.getWidth()), (int)(rect.getHeight()));
 		
-		while (detectCollision(simpleRect))
+		while (detector.detectCollision(simpleRect, listOfPlacedWords))
         { 
             int theta= k*turn %360;
             double L= k*GROWTH_RATE;
@@ -77,15 +80,6 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	
-	private boolean detectCollision(Rectangle proposed){
-		for(Rectangle existing : listOfPlacedWords){
-			if(proposed.intersects(existing) || proposed.contains(existing) || existing.contains(proposed))
-				return true;
-		}
-		return false;
 	}
 
 }
