@@ -69,14 +69,13 @@ LinearFontSizeStrategy.java implementation otherwise it will use the WeightedFon
 This interface contains two methods:
 
 ```java
-void placeString(WordFrequencyKeyValue word, Font font);
+void placeString(WordFrequencyKeyValue word);
 void complete(String outputName);
 ```
 
-the placeString method takes in a WordFrequencyKeyValue (I supply this full info to the interface since some implementations 
-may want to use the frequency or what have you to change how words are placed), and a Font, although this font is subject to change.
+the placeString method takes in a WordFrequencyKeyValue (I supply this full info to the interface since some implementations may want to use the frequency or what have you to change how words are placed)
 
-The complete method is needed to finalise the Graphics/Graphics2D objects and write them to file.
+The complete() method is needed to finalise the Graphics/Graphics2D objects and write them to file.
 
 The two implementations that exist for this currently are GaussianRotatingPlacerImpl.java and LogarithmicSpiralPlacerImpl.java
 
