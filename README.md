@@ -20,6 +20,8 @@ input.
 
 2. Architecture
 ---
+![architectureuml](http://i.imgur.com/qta0rnn.png)
+
 Working from 'back' to 'front' we have:
 
 #### Parseable.java
@@ -122,6 +124,12 @@ public static void main(String args[]) throws Exception{
 		gmit.draw();
 	}
 ```
+
+This will output 3 png images named tolstoy.png, bible.png and gmit.png into the directory where your jar file is.
+
+Please note: 
+
+## *The runner class is slow because of the internet delay. If you use only local files it runs much faster.*
 
 4. Tools and Environment Used
 ---
