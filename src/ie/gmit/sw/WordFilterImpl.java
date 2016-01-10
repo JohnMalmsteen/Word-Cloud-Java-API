@@ -35,8 +35,10 @@ public class WordFilterImpl implements Filterable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
-			sourcefile = "stopwords.txt";
-			parseFile();
+			
+			sourcefile = ("stopwords.txt".equals(sourcefile)) ? null : sourcefile;
+			if(sourcefile != null)
+				parseFile();
 		}
 		
 	}

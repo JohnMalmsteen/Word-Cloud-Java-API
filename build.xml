@@ -27,8 +27,11 @@
 	<property name="srcDir" value="./src/"/>
 	<property name="distDir" value="./dist"/>
 	<property name="docDir" value="${distDir}/docs"/>
-	<path id="classpath">
-		<pathelement location="./;./jsoup-1.8.3.jar"/>
+
+	<path id="jars">
+		<fileset dir="lib/">
+			<include name="**/*.jar"/>
+		</fileset>
 	</path>
 	<echo>
 	    ----------------------------------------------------------------------------
@@ -54,30 +57,37 @@
 	</target>
 	<!-- Compile source code -->
 	<target name="compile" depends="init">
-		<javac target="${jre.target}" source="${jre.target}" srcdir="${srcDir}" destdir="${distDir}">
-			<classpath refid="classpath"/>
+		<javac target="${jre.target}" source="${jre.target}" excludes="**/*Test*.java" srcdir="${srcDir}" destdir="${distDir}">
+			<classpath refid="jars"/>
 		</javac>
 	</target>
 	<!-- Create Java application archive (Jar) -->
-	<target name="archive" depends="compile">
-		<jar destfile="${distDir}/wordcloud.jar" basedir="${distDir}" excludes="**/*Test.class, **/Compact*.class">
-			<manifest>
-				<attribute name="Main-Class" value="ie.gmit.sw.Runner"/>
-				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Implementation-Vendor" value="${org.name}"/>
-				<attribute name="Implementation-Title" value="${app.name}"/>
-				<attribute name="Implementation-Version" value="${app.version}"/>
-			</manifest>
-		</jar>
+	<target name="create-jar" depends="compile">
+        <jar destfile="${distDir}/wordcloud.jar" filesetmanifest="mergewithoutmain" excludes="**/*Test.class, **/Compact*.class">
+            <manifest>
+                <attribute name="Main-Class" value="ie.gmit.sw.Runner"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${distDir}"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/john/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/john/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="jsoup-1.8.3.jar"/>
+        </jar>
+    </target>
+	<!-- Copy some files -->
+	<target name="copying" depends="create-jar">
+		<copydir src="lib/" dest="${distDir}/lib/"></copydir>
+		<copyfile src="stopwords.txt" dest="${distDir}/stopwords.txt"/>
+		<copyfile src="warandpeace.txt" dest="${distDir}/warandpeace.txt"/>
 	</target>
 	<!-- Generate JavaDocs -->
-	<target name="docs" depends="archive">
+	<target name="docs" depends="copying">
 		<javadoc sourcepath="${srcDir}" destdir="${docDir}" author="true" version="true" use="true" windowtitle="A Java Word Cloud API">
 			<doctitle>
-				<h1>A Java Word Cloud API</h1>
+				A Java Word Cloud API
 			</doctitle>
 			<bottom>
-				<i>Copyright &#169; 2015</i>
+				Copyright &#169; 2015
 			</bottom>
 		</javadoc>
 	</target>
