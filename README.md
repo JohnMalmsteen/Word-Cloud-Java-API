@@ -119,4 +119,6 @@ public static void main(String args[]) throws Exception{
 ---
 This project was developed in java and makes use of the [jsoup](http://jsoup.org/) library for pulling text from URLs.
 
+![bible](http://oi68.tinypic.com/ins48m.jpg)
+
 <a href="https://github.com/JohnMalmsteen"><img src="https://avatars1.githubusercontent.com/u/7085486?v=3&s=400" width="100px" height="100px" title="John" alt="John Image"/></a>
