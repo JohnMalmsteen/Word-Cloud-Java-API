@@ -42,6 +42,15 @@ which gives a mergesort with guaranteed n*log(n) performance
 
 The implementations of this class are TextFileParserImpl.java and UrlParserImpl.java which read from file and web resource respectively.
 
+#### Filterable.java
+This interface contains one method:
+
+```java
+boolean checkWord(String word);
+```
+
+which takes in a String and checks whether it should be filtered from the output. The idea is to remove uninteresting linking words and the paraphenelia of grammar from the output, currently there is only one implementation of this interface: WordFilterImpl.java which reads from the stopwords.txt file to build a filter. This class is composed with a HashSet and delegates the checkword() method to the hashSets contains() method, although there is a bit of extra code in this method which strips out small numbers.
+
 #### FontSizeSelectionStrategy.java
 This interface contains one method:
 
