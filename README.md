@@ -123,6 +123,12 @@ public static void main(String args[]) throws Exception{
 	}
 ```
 
+This will output 3 png images named tolstoy.png, bible.png and gmit.png into the directory where your jar file is.
+
+Please note: 
+
+## *The runner class is slow because of the internet delay. If you use only local files it runs much faster.*
+
 4. Tools and Environment Used
 ---
 This project was developed in java and makes use of the [jsoup](http://jsoup.org/) library for pulling text from URLs.
