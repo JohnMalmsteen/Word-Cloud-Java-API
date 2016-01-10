@@ -42,7 +42,8 @@ public class GaussianRotatingPlacer implements Placeable {
 		verticalCentre = 500;
 	}
 
-	public void placeString(WordFrequencyKeyValue word, Font font) {
+	public void placeString(WordFrequencyKeyValue word) {
+		Font font = new Font(Font.SANS_SERIF, Font.PLAIN, word.getFontSize());
 		context.setColor(colors[Math.abs(rand.nextInt())%5]);
 		int h = horizontalCentre;
         int v = verticalCentre;

@@ -42,7 +42,7 @@ public class CloudRenderer {
 	public void draw(){
 		for(WordFrequencyKeyValue keyValue : weightedArray){
 			if(keyValue!= null){
-				placer.placeString(keyValue, new Font(Font.SANS_SERIF, Font.PLAIN, keyValue.getFontSize()));
+				placer.placeString(keyValue);
 			}
 			else{
 				System.out.println("null");

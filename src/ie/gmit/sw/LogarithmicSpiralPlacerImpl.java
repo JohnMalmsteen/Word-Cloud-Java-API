@@ -39,10 +39,11 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 		verticalCentre = 500;
 	}
 	
-	public void placeString(WordFrequencyKeyValue word, Font font){
+	public void placeString(WordFrequencyKeyValue word){
 		int h = horizontalCentre;
         int v = verticalCentre;
 		int k = 1;
+		Font font = new Font(Font.SANS_SERIF, Font.PLAIN, word.getFontSize());
 		textColor = new Color(grayscale, grayscale, grayscale--);
 		context.setColor(textColor);
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(word.getWord(), context);
