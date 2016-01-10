@@ -3,6 +3,8 @@ package ie.gmit.sw;
 import java.io.*;
 import java.util.*;
 
+import javax.imageio.IIOException;
+
 public class WordFilterImpl implements Filterable {
 	private HashSet<String> stopwords = new HashSet<String>();
 	private String sourcefile = "stopwords.txt";
@@ -11,7 +13,7 @@ public class WordFilterImpl implements Filterable {
 		parseFile();
 	}
 	
-	public WordFilterImpl(String filename) throws IOException{
+	public WordFilterImpl(String filename){
 		sourcefile = filename;
 		parseFile();
 	}
@@ -33,6 +35,8 @@ public class WordFilterImpl implements Filterable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
+			sourcefile = "stopwords.txt";
+			parseFile();
 		}
 		
 	}
