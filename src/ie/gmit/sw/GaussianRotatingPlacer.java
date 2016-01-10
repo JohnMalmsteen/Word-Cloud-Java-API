@@ -53,59 +53,26 @@ public class GaussianRotatingPlacer implements Placeable {
 		AffineTransform affineTransform = context.getTransform() ;
 		
 		Rectangle2D rect = context.getFontMetrics(font).getStringBounds(word.getWord(), context);
-		Rectangle simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)(rect.getWidth()), (int)(rect.getHeight()));
+		Rectangle simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.7), (int)(rect.getWidth()), (int)(rect.getHeight()*.8));
 		if(rotated){
 			affineTransform =  new AffineTransform();
 			affineTransform.rotate(Math.toRadians(-90), 800, 500);
 			context.setTransform(affineTransform);
 			
-			int xpos;
-			int ypos;
-			
-			xpos = h - 800;
-			ypos = v -500;
-			
-			xpos = (int)(xpos*Math.cos(90) - ypos*Math.sin(90));
-			ypos = (int)((h-800)*Math.sin(90) + ypos*Math.cos(90));
-			
-			xpos += 800;
-			ypos += 500;
-			
-			simpleRect = new Rectangle(xpos, ypos, (int)rect.getHeight(), (int)rect.getWidth());
+			simpleRect = new Rectangle(h-50 + (int)(rect.getWidth()*.8), v, (int)(rect.getHeight()*.8), (int)rect.getWidth());
 		}	
 		
 		
 		
 		while (detectCollision(simpleRect))
         { 
-			// move the initialpoints
-			if(!rotated){
-				h = (int)(rand.nextGaussian()*(k/40)+horizontalCentre);
-				v = (int)(rand.nextGaussian()*(k/100)+verticalCentre);
-			}
-			else{
-				h = (int)(rand.nextGaussian()*(k/100)+horizontalCentre);
-				v = (int)(rand.nextGaussian()*(k/40)+verticalCentre);
-			}
-			
-			
+			h = (int)(rand.nextGaussian()*(k/40)+horizontalCentre);
+			v = (int)(rand.nextGaussian()*(k/100)+verticalCentre);
 
-			simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)rect.getWidth(), (int)rect.getHeight());
-			
-			if(rotated){
-				int xpos;
-				int ypos;
-				
-				xpos = h - 800;
-				ypos = v -500;
-				
-				xpos = (int)(xpos*Math.cos(90) - ypos*Math.sin(90));
-				ypos = (int)((h-800)*Math.sin(90) + ypos*Math.cos(90));
-				
-				xpos += 800;
-				ypos += 500;
-				
-				simpleRect = new Rectangle(xpos + (int)(rect.getWidth()*.8), ypos, (int)(rect.getHeight()*.8), (int)rect.getWidth());
+			if(rotated){				
+				simpleRect = new Rectangle(h-50 + (int)(rect.getWidth()*.8), v, (int)(rect.getHeight()*.8), (int)rect.getWidth());
+			}else{
+				simpleRect = new Rectangle(h, v-(int)(rect.getHeight()*.8), (int)rect.getWidth(), (int)rect.getHeight());
 			}
 			
 	        k= k+1;

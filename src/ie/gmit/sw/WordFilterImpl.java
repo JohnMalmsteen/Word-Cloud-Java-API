@@ -38,6 +38,18 @@ public class WordFilterImpl implements WordFilter {
 	}
 	
 	public boolean checkWord(String word){
+		
+		// sick of all the short numbers that turn up and add no values
+		// if its 4 then it's probably a year and may be interesting, as may things that are longer.
+		if(word.length() < 4){
+			try{
+				Integer.parseInt(word);
+				return true;
+			}catch(Exception e)
+			{
+				return stopwords.contains(word);
+			}
+		}
 		return stopwords.contains(word);
 	}
 	

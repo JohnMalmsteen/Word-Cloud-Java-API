@@ -22,7 +22,7 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 	private int horizontalCentre = 0;
 	private int verticalCentre = 0;
 	
-	private int turn = 23;
+	private int turn = 29;
 	
 	private List<Rectangle> listOfPlacedWords = new ArrayList<Rectangle>();
 

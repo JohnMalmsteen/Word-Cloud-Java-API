@@ -276,3 +276,15 @@ com
 http
 https
 log
+html5
+unto
+though
+thy
+thee
+said
+let
+hath
+thereof
+shalt
+ye
+thou

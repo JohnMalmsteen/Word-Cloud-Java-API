@@ -48,8 +48,8 @@ public class TextFileParserImpl implements Parseable {
 		}
 		Arrays.sort(arrayOfKeyValues, new WordFrequencyComparator());
 		
-		WordFrequencyKeyValue [] top50 = new WordFrequencyKeyValue[100];
-		top50 = Arrays.copyOf(arrayOfKeyValues, 100);
+		WordFrequencyKeyValue [] top50 = new WordFrequencyKeyValue[150];
+		top50 = Arrays.copyOf(arrayOfKeyValues, 150);
 		
 		return top50;
 	}

@@ -4,13 +4,13 @@ public class LinearFontSizeStrategy implements FontSizeSelectionStrategy{
 
 	@Override
 	public WordFrequencyKeyValue[] getFontSizes(WordFrequencyKeyValue[] arrayOfWordKeyValues) {
-		int i = 155;
+		int i = 100;
 		
 		for(WordFrequencyKeyValue keyValue : arrayOfWordKeyValues){
 			if(keyValue != null)
-				keyValue.setFontSize(i);
+				keyValue.setFontSize(Math.max(i, 5));
 			
-			i -= 3;
+			i -= 2;
 		}
 		
 		return arrayOfWordKeyValues;
