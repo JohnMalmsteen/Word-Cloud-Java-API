@@ -6,20 +6,18 @@ import javax.imageio.*;
 import java.io.*;
 import java.util.ArrayList;
 public class CloudRenderer {
-	
-	private ArrayList<Rectangle> listOfDrawnStrings = new ArrayList<>();	
 	private ParseableFactory parserFactory = ParseableFactory.getInstance();
-	
 	private Parseable parser;
 	private FontSizeSelectionStrategy strategy = null;
 	private WordFrequencyKeyValue[] weightedArray = null;
 	private String outputName;
+	private String sourceStr;
 	private PlaceableFactory patternFactory = PlaceableFactory.getInstance();
 	private Placeable placer;
 	
 	public CloudRenderer(String source, SourceType sourceType, DrawingPattern pattern, String outputName){
 		parser = parserFactory.getParseable(sourceType);
-		
+		sourceStr = source;
 		WordFrequencyKeyValue[] unweightedArray = parser.parse(source);
 		
 		// here i am demonstrating the context element of the strategy pattern employed for font weighting, if there are less than 50 disrete words in the list then we will use
@@ -39,6 +37,11 @@ public class CloudRenderer {
 		this.outputName = outputName;
 	}
 	
+	public void parse(String source){
+		WordFrequencyKeyValue [] unweightedArray = parser.parse(source);
+		weightedArray = strategy.getFontSizes(unweightedArray);
+	}
+	
 	public void draw(){
 		for(WordFrequencyKeyValue keyValue : weightedArray){
 			if(keyValue!= null){
@@ -50,6 +53,47 @@ public class CloudRenderer {
 		}
 		
 		placer.complete(outputName);
+	}
+
+	public Parseable getParser() {
+		return parser;
+	}
+
+	public void setParser(Parseable parser) {
+		this.parser = parser;
+	}
+
+	public FontSizeSelectionStrategy getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(FontSizeSelectionStrategy strategy) {
+		this.strategy = strategy;
+	}
+
+	public String getOutputName() {
+		return outputName;
+	}
+
+	public void setOutputName(String outputName) {
+		this.outputName = outputName;
+	}
+
+	public Placeable getPlacer() {
+		return placer;
+	}
+
+	public void setPlacer(Placeable placer) {
+		this.placer = placer;
+	}
+
+	public String getSourceStr() {
+		return sourceStr;
+	}
+
+	public void setSourceStr(String sourceStr) {
+		this.sourceStr = sourceStr;
+		parse(sourceStr);
 	}
 
 }

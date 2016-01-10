@@ -72,7 +72,7 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 		listOfPlacedWords.add(simpleRect);
 	}
 	
-	public void complete(String outputName){
+	public BufferedImage complete(String outputName){
 		context.dispose();
 		try {
 			ImageIO.write(image, "png", new File(outputName + ".png"));
@@ -80,6 +80,7 @@ public class LogarithmicSpiralPlacerImpl implements Placeable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return image;
 	}
 
 }

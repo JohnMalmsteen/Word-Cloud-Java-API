@@ -1,10 +1,10 @@
 package ie.gmit.sw;
 
-import java.awt.Font;
+import java.awt.image.BufferedImage;
 
 public interface Placeable {
 
 	void placeString(WordFrequencyKeyValue word);
-	void complete(String outputName);
+	BufferedImage complete(String outputName);
 
 }
